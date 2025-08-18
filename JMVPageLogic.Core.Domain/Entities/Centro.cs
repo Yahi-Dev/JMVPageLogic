@@ -14,4 +14,6 @@ public class Centro : IAuditableEntity
 
     public ICollection<Publicacion>? Publicaciones { get; set; }
     public ICollection<Actividades>? Actividades { get; set; }
+
+    public ICollection<Usuarios>? Usuarios { get; set; }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JMVPageLogic.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -238,6 +238,55 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdComunidad = table.Column<int>(type: "int", nullable: false),
+                    IdCentro = table.Column<int>(type: "int", nullable: false),
+                    IdVocalia = table.Column<int>(type: "int", nullable: false),
+                    IdEstatus = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
+                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Centro_IdCentro",
+                        column: x => x.IdCentro,
+                        principalTable: "Centro",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Comunidad_IdComunidad",
+                        column: x => x.IdComunidad,
+                        principalTable: "Comunidad",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Estatus_IdEstatus",
+                        column: x => x.IdEstatus,
+                        principalTable: "Estatus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Vocalia_IdVocalia",
+                        column: x => x.IdVocalia,
+                        principalTable: "Vocalia",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Actividades",
                 columns: table => new
                 {
@@ -353,6 +402,26 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                 column: "IdPublicacion");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_IdCentro",
+                table: "Usuarios",
+                column: "IdCentro");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_IdComunidad",
+                table: "Usuarios",
+                column: "IdComunidad");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_IdEstatus",
+                table: "Usuarios",
+                column: "IdEstatus");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_IdVocalia",
+                table: "Usuarios",
+                column: "IdVocalia");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vocal_IdCentro",
                 table: "Vocal",
                 column: "IdCentro");
@@ -388,16 +457,19 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                 name: "Biblioteca");
 
             migrationBuilder.DropTable(
-                name: "Comunidad");
+                name: "Recordatorio");
 
             migrationBuilder.DropTable(
-                name: "Recordatorio");
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "VocalValor");
 
             migrationBuilder.DropTable(
                 name: "Publicacion");
+
+            migrationBuilder.DropTable(
+                name: "Comunidad");
 
             migrationBuilder.DropTable(
                 name: "Valor");

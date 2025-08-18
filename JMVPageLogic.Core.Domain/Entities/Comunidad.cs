@@ -17,4 +17,7 @@ public class Comunidad : IAuditableEntity
 
     [ForeignKey("EstatusId")]
     public Estatus? Estatus { get; set; }
+
+    public ICollection<Usuarios>? Usuarios { get; set; }
+
 }

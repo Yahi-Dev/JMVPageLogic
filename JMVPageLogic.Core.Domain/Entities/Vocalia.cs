@@ -11,5 +11,7 @@ namespace JMVPageLogic.Core.Domain.Entities
 
         [ForeignKey("Id_Tipovocalia")]
         public Tipo? Tipo { get; set; } //Nacional o de Centro
+
+        public ICollection<Usuarios>? Usuarios { get; set; }
     }
 }

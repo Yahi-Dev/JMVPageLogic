@@ -17,7 +17,7 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.7")
+                .HasAnnotation("ProductVersion", "9.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -358,6 +358,68 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                     b.ToTable("Tipo", (string)null);
                 });
 
+            modelBuilder.Entity("JMVPageLogic.Core.Domain.Entities.Usuarios", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Apellido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("DeletedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdCentro")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdComunidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdEstatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdVocalia")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCentro");
+
+                    b.HasIndex("IdComunidad");
+
+                    b.HasIndex("IdEstatus");
+
+                    b.HasIndex("IdVocalia");
+
+                    b.ToTable("Usuarios", (string)null);
+                });
+
             modelBuilder.Entity("JMVPageLogic.Core.Domain.Entities.Valor", b =>
                 {
                     b.Property<int>("Id")
@@ -580,6 +642,41 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                     b.Navigation("Publicacion");
                 });
 
+            modelBuilder.Entity("JMVPageLogic.Core.Domain.Entities.Usuarios", b =>
+                {
+                    b.HasOne("Centro", "Centro")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("IdCentro")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Comunidad", "Comunidad")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("IdComunidad")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("JMVPageLogic.Core.Domain.Entities.Estatus", "Estatus")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("IdEstatus")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("JMVPageLogic.Core.Domain.Entities.Vocalia", "Vocalia")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("IdVocalia")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Centro");
+
+                    b.Navigation("Comunidad");
+
+                    b.Navigation("Estatus");
+
+                    b.Navigation("Vocalia");
+                });
+
             modelBuilder.Entity("JMVPageLogic.Core.Domain.Entities.Vocal", b =>
                 {
                     b.HasOne("Centro", "Centro")
@@ -634,6 +731,18 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                     b.Navigation("Actividades");
 
                     b.Navigation("Publicaciones");
+
+                    b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Comunidad", b =>
+                {
+                    b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("JMVPageLogic.Core.Domain.Entities.Estatus", b =>
+                {
+                    b.Navigation("Usuarios");
                 });
 
             modelBuilder.Entity("JMVPageLogic.Core.Domain.Entities.Publicacion", b =>
@@ -649,6 +758,11 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("JMVPageLogic.Core.Domain.Entities.Vocal", b =>
                 {
                     b.Navigation("VocalValores");
+                });
+
+            modelBuilder.Entity("JMVPageLogic.Core.Domain.Entities.Vocalia", b =>
+                {
+                    b.Navigation("Usuarios");
                 });
 #pragma warning restore 612, 618
         }

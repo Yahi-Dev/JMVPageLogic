@@ -7,9 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="4.12.1" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.6" />
-    <PackageReference Include="MimeKit" Version="4.12.0" />
+    <PackageReference Include="MailKit" Version="4.13.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.8" />
+    <PackageReference Include="MimeKit" Version="4.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JMVPageLogic.Core.Application\JMVPageLogic.Core.Application.csproj" />
+    <ProjectReference Include="..\JMVPageLogic.Core.Domain\JMVPageLogic.Core.Domain.csproj" />
   </ItemGroup>
 
 </Project>

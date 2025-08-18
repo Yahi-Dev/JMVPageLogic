@@ -20,6 +20,7 @@ namespace JMVPageLogic.Infrastructure.Identity.Contexts
         public DbSet<Vocal> Vocal { get; set; }
         public DbSet<Vocalia> Vocalia { get; set; }
         public DbSet<VocalValor> VocalValor { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +39,7 @@ namespace JMVPageLogic.Infrastructure.Identity.Contexts
             modelBuilder.Entity<Vocal>().ToTable("Vocal");
             modelBuilder.Entity<Vocalia>().ToTable("Vocalia");
             modelBuilder.Entity<VocalValor>().ToTable("VocalValor");
+            modelBuilder.Entity<Usuarios>().ToTable("Usuarios");
             #endregion
 
             #region Configuraciones de Claves Primarias
@@ -47,13 +49,13 @@ namespace JMVPageLogic.Infrastructure.Identity.Contexts
             // Biblioteca usa Ruta_doc como clave primaria
             modelBuilder.Entity<Biblioteca>().HasKey(b => b.Id);
 
-            // Centro usa Nombre como clave primaria
+            // Centro tiene clave primaria
             modelBuilder.Entity<Centro>().HasKey(c => c.Id);
 
-            // Comunidad usa Nombre como clave primaria
+            // Comunidad tiene clave primaria
             modelBuilder.Entity<Comunidad>().HasKey(c => c.Id);
 
-            // Estatus usa Nombre como clave primaria
+            // Estatus tiene clave primaria
             modelBuilder.Entity<Estatus>().HasKey(e => e.Id);
 
             // Publicacion usa IMG como clave primaria
@@ -62,20 +64,23 @@ namespace JMVPageLogic.Infrastructure.Identity.Contexts
             // Recordatorio tiene clave compuesta
             modelBuilder.Entity<Recordatorio>().HasKey(r => r.Id);
 
-            // Tipo usa Nombre como clave primaria
+            // Tipo tine clave primaria
             modelBuilder.Entity<Tipo>().HasKey(t => t.Id);
 
-            // Valor usa Nombre como clave primaria
+            // Valor tiene clave primaria
             modelBuilder.Entity<Valor>().HasKey(v => v.Id);
 
             // Vocal tiene clave compuesta
             modelBuilder.Entity<Vocal>().HasKey(v => v.Id);
 
-            // Vocalia usa Nombre como clave primaria
+            // Vocalia tiene clave primaria
             modelBuilder.Entity<Vocalia>().HasKey(v => v.Id);
 
             // VocalValor tiene clave compuesta
             modelBuilder.Entity<VocalValor>().HasKey(vv => vv.Id);
+
+            // Usuarios tiene clave primaria
+            modelBuilder.Entity<Usuarios>().HasKey(u => u.Id);
             #endregion
 
             #region Configuraciones de Relaciones
@@ -161,6 +166,30 @@ namespace JMVPageLogic.Infrastructure.Identity.Contexts
                 .WithMany(v => v.VocalValores)
                 .HasForeignKey(vv => vv.ValorId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Usuarios>()
+                .HasOne(u => u.Comunidad)
+                .WithMany(c => c.Usuarios)
+                .HasForeignKey(u => u.IdComunidad)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Usuarios>()
+                .HasOne(u => u.Centro)
+                .WithMany(c => c.Usuarios)
+                .HasForeignKey(u => u.IdCentro)
+                .OnDelete(DeleteBehavior.Restrict);
+
+               modelBuilder.Entity<Usuarios>()
+                .HasOne(u => u.Vocalia)
+                .WithMany(v => v.Usuarios)
+                .HasForeignKey(u => u.IdVocalia)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Usuarios>()
+                .HasOne(u => u.Estatus)
+                .WithMany(e => e.Usuarios)
+                .HasForeignKey(u => u.IdEstatus)
+                .OnDelete(DeleteBehavior.Restrict);
             #endregion
 
             #region Configuraciones de Propiedades

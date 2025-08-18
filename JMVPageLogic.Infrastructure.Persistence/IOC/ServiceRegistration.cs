@@ -15,7 +15,7 @@ namespace JMVPageLogic.Infrastructure.Identity.IOC
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             {
                 service.AddDbContext<ApplicationContext>(options =>
-                                                        options.UseInMemoryDatabase("JMV"));
+                                                        options.UseInMemoryDatabase("InMemoryIdentity"));
             }
             else
             {
@@ -35,6 +35,7 @@ namespace JMVPageLogic.Infrastructure.Identity.IOC
             service.AddTransient<ICentroRepository, CentroRepository>();
             service.AddTransient<IComunidadRepository, ComunidadRepository>();
             service.AddTransient<IEstatusRepository, EstatusRepository>();
+            service.AddTransient<IUsuariosRepository, UsuariosRepository>();
             #endregion
         }
     }
