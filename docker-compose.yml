@@ -6,7 +6,7 @@ services:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Tu_ContraseñaSegura123
     ports:
-      - "1434:1433"
+      - "1435:1433"
     volumes:
       - sqlserverdata:/var/opt/mssql
 volumes:

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JMVPageLogic.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250817234558_InitialMigration")]
+    [Migration("20250819185252_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
