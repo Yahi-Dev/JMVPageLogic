@@ -102,7 +102,7 @@ namespace JMVPageLogic.Infrastructure.Identity.Contexts
             modelBuilder.Entity<Centro>()
                 .HasOne(c => c.Estatus)
                 .WithMany()
-                .HasForeignKey(c => c.Id)  
+                .HasForeignKey(c => c.EstatusId)  
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Relación Comunidad - Centro

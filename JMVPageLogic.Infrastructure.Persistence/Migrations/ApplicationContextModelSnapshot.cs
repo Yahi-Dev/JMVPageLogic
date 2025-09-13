@@ -25,7 +25,10 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Centro", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedById")
                         .HasColumnType("nvarchar(max)");
@@ -44,6 +47,9 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                     b.Property<string>("Direccion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("EstatusId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ModifiedById")
                         .HasColumnType("nvarchar(max)");
 
@@ -54,6 +60,8 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EstatusId");
 
                     b.ToTable("Centro", (string)null);
                 });
@@ -575,9 +583,8 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("JMVPageLogic.Core.Domain.Entities.Estatus", "Estatus")
                         .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("EstatusId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Estatus");
                 });
