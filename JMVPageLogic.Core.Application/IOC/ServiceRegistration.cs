@@ -18,6 +18,7 @@ namespace JMVPageLogic.Core.Application.IOC
             services.AddTransient<IUsuariosService, UsuariosService>();
             services.AddTransient<IActividadesService, ActividadesService>();
             services.AddTransient<IBibliotecaService, BibliotecaService>();
+            services.AddTransient<IPublicacionesService, PublicacionesService>();
 
             services.AddTransient<ICentroService, CentroService>();
             services.AddTransient<IComunidadService, ComunidadService>();

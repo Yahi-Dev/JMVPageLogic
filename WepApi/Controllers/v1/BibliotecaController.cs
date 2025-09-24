@@ -19,6 +19,11 @@ namespace WepApi.Controllers.v1
             _bibliotecaService = biliotecaService;
         }
 
+        
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioDto))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Usuario")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -37,6 +42,11 @@ namespace WepApi.Controllers.v1
             }
         }
 
+        
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioDto))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Usuario")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -54,7 +64,12 @@ namespace WepApi.Controllers.v1
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        
 
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Post(SaveBibliotecaDto bibliotecaDto)
         {
@@ -73,6 +88,11 @@ namespace WepApi.Controllers.v1
             }
         }
 
+        
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, SaveBibliotecaDto bibliotecaDto)
         {
@@ -96,6 +116,11 @@ namespace WepApi.Controllers.v1
             }
         }
 
+        
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {

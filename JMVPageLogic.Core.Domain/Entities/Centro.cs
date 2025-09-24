@@ -7,7 +7,8 @@ public class Centro : IAuditableEntity
     public string? Nombre { get; set; }
     public string? Direccion { get; set; }
 
-    public int? EstatusId {get; set;}
+    public int? EstatusId { get; set; }
+    [ForeignKey("EstatusId")]
     public Estatus? Estatus { get; set; }
 
     public ICollection<Publicacion>? Publicaciones { get; set; }
