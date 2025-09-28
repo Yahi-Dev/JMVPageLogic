@@ -4,6 +4,7 @@ using JMVPageLogic.Core.Application.Dtos.Biblioteca;
 using JMVPageLogic.Core.Application.Dtos.Centro;
 using JMVPageLogic.Core.Application.Dtos.Comunidad;
 using JMVPageLogic.Core.Application.Dtos.Estatus;
+using JMVPageLogic.Core.Application.Dtos.Publicaciones;
 using JMVPageLogic.Core.Application.Dtos.Usuarios;
 using JMVPageLogic.Core.Domain.Entities;
 
@@ -56,6 +57,15 @@ namespace JMVPageLogic.Core.Application.Mappings
             CreateMap<Biblioteca, SaveBibliotecaDto>()
                 .ReverseMap();
             CreateMap<BibliotecaDto, SaveBibliotecaDto>()
+                .ReverseMap();
+            #endregion
+
+            #region Publicaciones
+            CreateMap<Publicacion, PublicacionesDto>()
+                .ReverseMap();
+            CreateMap<Publicacion, SavePublicacionesDto>()
+                .ReverseMap();
+            CreateMap<PublicacionesDto, SavePublicacionesDto>()
                 .ReverseMap();
             #endregion
 

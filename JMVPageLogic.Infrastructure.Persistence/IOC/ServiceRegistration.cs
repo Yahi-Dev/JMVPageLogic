@@ -36,6 +36,7 @@ namespace JMVPageLogic.Infrastructure.Identity.IOC
             service.AddTransient<IComunidadRepository, ComunidadRepository>();
             service.AddTransient<IEstatusRepository, EstatusRepository>();
             service.AddTransient<IUsuariosRepository, UsuariosRepository>();
+            service.AddTransient<IPublicacionesRepository, PublicacionesRepository>();
             #endregion
         }
     }

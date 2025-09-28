@@ -6,6 +6,8 @@
         public string? Nombre { get; set; }
         public string? Direccion { get; set; }
 
+        public int? EstatusId { get; set; }
+
         public DateTime CreatedDate { get; set; }
     }
 }

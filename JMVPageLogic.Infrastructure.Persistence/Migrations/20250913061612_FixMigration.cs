@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JMVPageLogic.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class FixMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -92,9 +92,11 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                 name: "Centro",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EstatusId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -106,8 +108,8 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Centro", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Centro_Estatus_Id",
-                        column: x => x.Id,
+                        name: "FK_Centro_Estatus_EstatusId",
+                        column: x => x.EstatusId,
                         principalTable: "Estatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -380,6 +382,11 @@ namespace JMVPageLogic.Infrastructure.Persistence.Migrations
                 name: "IX_Actividades_Id_Publicacion",
                 table: "Actividades",
                 column: "Id_Publicacion");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Centro_EstatusId",
+                table: "Centro",
+                column: "EstatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comunidad_CentroId",
